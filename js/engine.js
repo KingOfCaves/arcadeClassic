@@ -5,7 +5,7 @@
  *
  * A game engine works by drawing the entire game screen over and over, kind of
  * like a flipbook you may have created as a kid. When your player moves across
- * the screen, it may look like just that img/character is moving or being
+ * the screen, it may look like just that image/character is moving or being
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
@@ -103,16 +103,16 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
-        /* This array holds the relative URL to the img used
+        /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
         var rowImages = [
-                'img/water-block.png',   // Top row is water
-                'img/stone-block.png',   // Row 1 of 3 of stone
-                'img/stone-block.png',   // Row 2 of 3 of stone
-                'img/stone-block.png',   // Row 3 of 3 of stone
-                'img/grass-block.png',   // Row 1 of 2 of grass
-                'img/grass-block.png'    // Row 2 of 2 of grass
+                'images/water-block.png',   // Top row is water
+                'images/stone-block.png',   // Row 1 of 3 of stone
+                'images/stone-block.png',   // Row 2 of 3 of stone
+                'images/stone-block.png',   // Row 3 of 3 of stone
+                'images/grass-block.png',   // Row 1 of 2 of grass
+                'images/grass-block.png'    // Row 2 of 2 of grass
             ],
             numRows = 6,
             numCols = 5,
@@ -122,16 +122,16 @@ var Engine = (function(global) {
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
         /* Loop through the number of rows and columns we've defined above
-         * and, using the rowImages array, draw the correct img for that
+         * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
          */
         for (row = 0; row < numRows; row++) {
             for (col = 0; col < numCols; col++) {
                 /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the img to draw, the x coordinate
+                 * requires 3 parameters: the image to draw, the x coordinate
                  * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our img
-                 * so that we get the benefits of caching these img, since
+                 * We're using our Resources helpers to refer to our images
+                 * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
@@ -164,16 +164,16 @@ var Engine = (function(global) {
         // noop
     }
 
-    /* Go ahead and load all of the img we know we're going to need to
+    /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
-     * all of these img are properly loaded our game will start.
+     * all of these images are properly loaded our game will start.
      */
     Resources.load([
-        'img/stone-block.png',
-        'img/water-block.png',
-        'img/grass-block.png',
-        'img/enemy-bug.png',
-        'img/char-boy.png'
+        'images/stone-block.png',
+        'images/water-block.png',
+        'images/grass-block.png',
+        'images/enemy-bug.png',
+        'images/char-boy.png'
     ]);
     Resources.onReady(init);
 
