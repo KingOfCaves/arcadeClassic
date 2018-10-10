@@ -1,8 +1,13 @@
+const row = 83;
+const column = 101;
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.x = column*0;
+    this.y = row*3;
+    this.speed = Math.floor(Math.random()*3);
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -24,12 +29,39 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
-
+var Character = function(){
+    this.sprite = 'images/char-boy.png';
+    this.x = 202;
+    this.y = 404;
+    this.render = function(){
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+    this.update = function(){}
+    this.handleInput = function(key){
+        if (key === 'left'){
+            console.log(key);
+            this.x -= column;
+        }
+        else if (key === 'right'){
+            console.log(key);
+            this.x += column;
+        }
+        else if (key === 'up'){
+            console.log(key);
+            this.y -= row;
+        }
+        else if (key === 'down'){
+            console.log(key);
+            this.y += row;
+        }
+    }
+}
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-
+const player = new Character();
+const Enemy1 = new Enemy();
+const allEnemies = [Enemy1];
 
 
 // This listens for key presses and sends the keys to your
