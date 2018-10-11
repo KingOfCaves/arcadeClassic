@@ -1,14 +1,25 @@
 const row = 83;
-const column = 101;
+const col = 101;
+
+
 
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.start = column * -2;
+    this.randomSpeed = function(min, max) {
+        return col * (Math.round(Math.random() * (max - min) + min));
+    }
+    this.randomRow = function() {
+        return (row * 2.75) - (Math.floor(Math.random() * 3) * 83);
+    }
+
+    this.start = col * -2;
     this.x = this.start;
-    this.y = (row * 2.75) - (Math.floor(Math.random() * 3) * 83);
-    this.speed = column * (Math.floor(Math.random() * 2) + (column*3));
+    this.y = this.randomRow();
+    this.speed = this.randomSpeed(1, 4);
+    this.height = row;
+    this.width = col;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -21,10 +32,10 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed*dt;
-    if (this.x > column*5){
+    if (this.x > col*5){
         this.x = this.start;
-        this.y = (row * 2.75) - (Math.floor(Math.random() * 3) * 83);
-        this.speed = column * (Math.random() * 4);
+        this.y = this.randomRow();
+        this.speed = this.randomSpeed(1, 4);
     }
 };
 
@@ -57,11 +68,11 @@ var Character = function(){
         }
     }
     this.handleInput = function(key){
-        if (key === 'left' && this.x > (column * 0)){
-            this.x -= column;
+        if (key === 'left' && this.x > (col * 0)){
+            this.x -= col;
         }
-        else if (key === 'right' && this.x < (column * 4)){
-            this.x += column;
+        else if (key === 'right' && this.x < (col * 4)){
+            this.x += col;
         }
         else if (key === 'up'){
             this.y -= row;
@@ -73,9 +84,9 @@ var Character = function(){
 }
 
 const Gem = function() {
-    this.x = (row * 2.75) - (Math.floor(Math.random() * 3) * 83);
-    this.y = (row * 2.75) - (Math.floor(Math.random() * 3) * 83);
-    this.sprite = "images/Gem Green.png"
+    this.x = (Math.floor(Math.random() * 3) * col);
+    this.y = (row * 2.75) - (Math.floor(Math.random() * 3) * row);
+    this.sprite = "images/Key.png";
     this.render = function () {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
@@ -88,10 +99,8 @@ const player = new Character();
 const enemy1 = new Enemy();
 const enemy2 = new Enemy();
 const enemy3 = new Enemy();
-const enemy4 = new Enemy();
-const enemy5 = new Enemy();
 const gem = new Gem();
-const allEnemies = [enemy1,enemy2,enemy3,enemy4,enemy5];
+const allEnemies = [enemy1,enemy2,enemy3];
 
 
 // This listens for key presses and sends the keys to your
