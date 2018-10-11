@@ -1,3 +1,17 @@
 body {
-    text-align: center;
+    width: 100vw;
+    height: 100vh;
+    background: url("../images/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+canvas {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: grayscale(.75);
+    z-index: 1;
 }
