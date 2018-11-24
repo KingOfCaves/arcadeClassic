@@ -1,8 +1,6 @@
 const row = 83;
 const col = 101;
 
-
-
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -11,7 +9,7 @@ var Enemy = function() {
         return col * (Math.round(Math.random() * (max - min) + min));
     }
     this.randomRow = function() {
-        return (row * 2.75) - (Math.floor(Math.random() * 3) * 83);
+        return ((row * 3) - (Math.floor(Math.random() * 3) * row) - this.offset);
     }
 
     this.start = col * -2;
@@ -20,6 +18,7 @@ var Enemy = function() {
     this.speed = this.randomSpeed(1, 4);
     this.height = row;
     this.width = col;
+    this.offset = 11;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -31,12 +30,32 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.collision = function(collision){
+        if (collision){
+            player.x = player.startCord.x;
+            player.y = player.startCord.y;
+            if (player.score - 40 >= 0) {
+                player.score -= 40;
+            } else if (player.score < 40) {
+                player.score = 0;
+            }
+        }
+    }
+
+    this.range = (
+        player.x < this.x + 60 &&
+        player.x + 60 > this.x &&
+        player.y < this.y + 60 &&
+        60 + player.y > this.y)
+
     this.x += this.speed*dt;
     if (this.x > col*5){
         this.x = this.start;
         this.y = this.randomRow();
         this.speed = this.randomSpeed(1, 4);
     }
+
+    this.collision(this.range);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -50,8 +69,8 @@ Enemy.prototype.render = function() {
 var Character = function(){
     this.sprite = 'images/char-boy.png';
     this.startCord = {
-        x: 202,
-        y: 404
+        x: col * 2,
+        y: col * 4
     }
     this.score = 0;
     this.goal = -11;
@@ -62,9 +81,8 @@ var Character = function(){
     }
     this.update = function(){
         if (this.y === this.goal){
-            this.x = this.startCord.x;
-            this.y = this.startCord.y;
             this.score += 20;
+            this.reset();
         }
     }
     this.handleInput = function(key){
@@ -81,16 +99,10 @@ var Character = function(){
             this.y += row;
         }
     }
-}
-
-const Gem = function() {
-    this.x = (Math.floor(Math.random() * 3) * col);
-    this.y = (row * 2.75) - (Math.floor(Math.random() * 3) * row);
-    this.sprite = "images/Key.png";
-    this.render = function () {
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.reset = function(){
+        this.x = this.startCord.x;
+        this.y = this.startCord.y;
     }
-    this.update = function(){}
 }
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -99,7 +111,6 @@ const player = new Character();
 const enemy1 = new Enemy();
 const enemy2 = new Enemy();
 const enemy3 = new Enemy();
-const gem = new Gem();
 const allEnemies = [enemy1,enemy2,enemy3];
 
 
