@@ -1,6 +1,8 @@
 const row = 83;
 const col = 101;
 
+const reset = document.querySelector(".reset");
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -30,8 +32,8 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.collision = function(collision){
-        if (collision){
+    this.collision = function(collide){
+        if (collide){
             player.x = player.startCord.x;
             player.y = player.startCord.y;
             if (player.score - 40 >= 0) {
@@ -39,6 +41,7 @@ Enemy.prototype.update = function(dt) {
             } else if (player.score < 40) {
                 player.score = 0;
             }
+            player.view.updateScore();
         }
     }
 
@@ -82,7 +85,11 @@ var Character = function(){
     this.update = function(){
         if (this.y === this.goal){
             this.score += 20;
-            this.reset();
+            this.view.updateScore();
+            this.placement();
+            if (this.score >= 500) {
+                return this.victory(true);
+            }
         }
     }
     this.handleInput = function(key){
@@ -99,9 +106,39 @@ var Character = function(){
             this.y += row;
         }
     }
-    this.reset = function(){
+    this.placement = function(){
         this.x = this.startCord.x;
         this.y = this.startCord.y;
+    }
+
+    this.view = {
+        score: document.querySelector(".score__num"),
+        winScreen: document.querySelector(".win-screen"),
+
+        updateScore: function(){
+            this.score.textContent = player.score;
+        },
+        showWin: function(){
+            this.winScreen.classList.remove("close");
+        },
+        hideWin: function(){
+            this.winScreen.classList.add("close");
+        }
+    }
+    
+    this.victory = function(state){
+        if(state){
+            this.placement();
+            gameTime.stop();
+            this.view.showWin();
+        } else {
+            this.score = 0;
+            this.placement();
+            this.view.updateScore();
+            this.view.hideWin();
+            gameTime.stop();
+            gameTime.start();
+        }
     }
 }
 // Now instantiate your objects.
@@ -125,4 +162,29 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+});
+
+var Timer = function() {
+    this.time = 0;
+    this.tick;
+    this.viewBar = document.querySelector(".time__num");
+    this.viewRecord = document.querySelector(".record");
+    this.start = function () {
+        this.tick = setInterval(() => {
+            this.time++;
+            this.viewBar.textContent = this.time;
+            this.viewRecord.textContent = this.time;
+        }, 1000);
+    }
+    this.stop = function(){
+        clearInterval(this.tick);
+        this.time = 0;
+    }
+}
+
+const gameTime = new Timer();
+gameTime.start();
+
+reset.addEventListener("click", function(){
+    player.victory(false);
 });

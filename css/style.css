@@ -1,3 +1,6 @@
+html {
+    font-size: 62.5%;
+}
 body {
     width: 100vw;
     height: 100vh;
@@ -5,12 +8,104 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     image-rendering: pixelated;
+    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    font-family: 'comicoromedium';
 }
-canvas {
+
+.header {
+    height: auto;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    text-transform: uppercase;
+    color: rgb(3, 207, 47);
+
+    background: rgba(0,0,0,.5);
+    box-shadow: 0 0 2rem black;
+    text-shadow: 0 0 1rem black;
+
+    cursor: default;
+    user-select: none;
+}
+.github-link {
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+}
+.github-link:link, .github-link:visited {
+    text-decoration: none;
+    color: white;
+}
+.github-logo {
+    width: 2rem;
+    height: 2rem;
+    margin-left: .5rem;
+    image-rendering: initial;
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.title {
+    font-size: 10rem;
+    transition: all .5s;
+    margin-bottom: -1.5rem;
+}
+.title:hover {
+    text-shadow: 
+        0 0 2rem currentColor,
+        0 0 2rem currentColor;
+}
+
+.game-bar {
     display: block;
+    font-size: 4rem;
+    width: 100%;
+    padding: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.game-bar span:not(:last-of-type) {
+    margin-right: 5rem;
+}
+.prompt {
+    width: 100%;
+    text-align: center;
+    color: rgb(255, 30, 30);
+}
+.reset{
+    color: white;
+}
+
+.win-screen {
+    width: 100%;
+    height: auto;
     position: absolute;
-    top: 50%;
+    top: 65%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    font-size: 10rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.664);
+    transition: 1s all;
+}
+.win-screen.close {
+    font-size: 0;
+    height: 0;
+    opacity: 0;
 }
