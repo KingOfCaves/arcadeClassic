@@ -3,10 +3,14 @@
 ## Table of Contents
 
 * [Getting Started](#getting-started)
+* [How To Play](#how-to-play)
 * [Credits](#credits)
 
 ## Getting Started
 Clone the main repository and load the index.html file into your browser of choice. Or you can go to Github Pages version [here]().
+
+## How to Play
+Playing the game is very easy. You use the arrow keys to move Up, Down, Left and Right. In order to rack up points you need to pass the constant feed of obstacles coming from the left of the screen, and get your character into the water. This will add 20 points to your score, but be careful. The enemies take away 40 points if they come into contact with your character. You win the game by collection 500 points as quick as possible. When you win you will be presented with the time it took you to reach your goal.
 
 ## Credits
 
