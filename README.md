@@ -1,7 +1,7 @@
 # arcadeClassic
+A recreation of an arcade classic using a javascript engine, OOP and ES6.
 
-## Table of Contents
-
+## TABLE OF CONTENTS
 * [Getting Started](#getting-started)
 * [How To Play](#how-to-play)
 * [Credits](#credits)
@@ -11,6 +11,9 @@ Clone the main repository and load the index.html file into your browser of choi
 
 ## How to Play
 Playing the game is very easy. You use the arrow keys to move Up, Down, Left and Right. In order to rack up points you need to pass the constant feed of obstacles coming from the left of the screen, and get your character into the water. This will add 20 points to your score, but be careful. The enemies take away 40 points if they come into contact with your character. You win the game by collection 500 points as quick as possible. When you win you will be presented with the time it took you to reach your goal.
+
+## Screenshots
+![picture of the game](./docs/arcade-classic-1.png)
 
 ## Credits
 
