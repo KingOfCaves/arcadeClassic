@@ -1,4 +1,4 @@
-# arcadeClassic
+# wills-arcade-classic
 A recreation of an arcade classic using a javascript engine, OOP and ES6.
 
 ## TABLE OF CONTENTS
